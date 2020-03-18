@@ -5,7 +5,7 @@ import logging
 import requests
 import unidecode
 from datetime import datetime
-from Carros.items import RealstateItem
+from Property.items import RealstateItem
 from scrapy.http import TextResponse
 from twisted.internet import reactor
 from scrapy.crawler import CrawlerRunner
@@ -26,7 +26,6 @@ class RealstateSpider(scrapy.Spider):
         'FEED_EXPORT_ENCODING': 'utf-8',
         'SPIDER_MIDDLEWARES': {
             'scrapy_deltafetch.DeltaFetch': 500,
-            'Carros.middlewares.CarrosSpiderMiddleware': 400,
             'scrapy_magicfields.MagicFieldsMiddleware': 400,
         },
         'MAGIC_FIELDS': {
@@ -39,14 +38,11 @@ class RealstateSpider(scrapy.Spider):
         'EXTENSIONS': {
             'scrapy.extensions.statsmailer.StatsMailer': 500,
         },
-        'STATSMAILER_RCPTS': ['ajimenezbonilla@gmail.com'],
+        'STATSMAILER_RCPTS': ['******@gmail.com'],
         'MAIL_HOST': 'smtp.gmail.com',
         'MAIL_PORT': 587,
-        'MAIL_USER': 'pruebacvmobile@gmail.com',
-        'MAIL_PASS': 'Loteamo2015'
-        # 'ITEM_PIPELINES': {
-        #         'Carros.pipelines.CarrosPipeline': 500
-        #     }
+        'MAIL_USER': '*****@gmail.com',
+        'MAIL_PASS': '######'
     }
 
     def start_requests(self):
@@ -69,7 +65,7 @@ class RealstateSpider(scrapy.Spider):
 
     def get_details(self, response):
 
-        # FUNCIONES
+        # Functions
 
         def getInt(value):
             try:
@@ -77,8 +73,7 @@ class RealstateSpider(scrapy.Spider):
             except Exception:
                 return int(value)
 
-        # Texto
-        # Nombre vendedor
+        # Seller
         def noaccent_seller(s):
             try:
                 return str(unidecode.unidecode(s))
@@ -99,7 +94,7 @@ class RealstateSpider(scrapy.Spider):
                 return str(unidecode.unidecode(s))
             return accent(tostr(s))
 
-        # latitud y longitud
+        # latitude y longitude
         def location(s):
             result = "".join(s)
             return (result)
